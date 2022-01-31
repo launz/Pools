@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ObjectPooler", menuName = "boyant/ObjectPooler", order = 0)]
+[CreateAssetMenu(fileName = "ObjectPooler", menuName = "OUT/Pools/ObjectPooler", order = 0)]
 public class ObjectPooler : ScriptableObject 
 {
     public List<ObjectPool> objectPools = new List<ObjectPool>();
