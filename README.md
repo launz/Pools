@@ -11,5 +11,5 @@ Just move content of Pools into Unity project.
 
 ### Using generic Pools:
 
-Create a new ObjectPooler asset: Create/OUT/Pools/ObjectPooler. This is the main asset to store all the information of pools in use as well as controlling all the pooling functions like spawning and despawning pooled objects. On the ObjectPooler create ObjectPools for all different items that should be pooled with a pool-name, a reference to a prefab and the pool-size and spawning parameters. Reference the ObjectPooler asset from a script in the scene and call InitPools() to initialize them. There can be multiple ObjectPoolers in the project to organize pools with different functionality and to initialize them in an asynchronous way. Use Spawn() and Despawn() to pool and unpool objects into the scene.
+First create a new ObjectPool in a script. Data, like the prefab to be used as well as pool size, can be filled in manually at creation or with the help of a ObjectPoolData asset. Especially when many pools should be created at runtime with the same properties ObjectPoolData can be useful. Every ObjectPool can be controlled through the static functions in the *Pools* script. When an ObjectPool is used for the first time it has to be initiated with Init(). Use Spawn() to pool in new objects into the scene and Despawn() to unpool them again.
 
