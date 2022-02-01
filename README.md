@@ -16,3 +16,12 @@ First create a new ObjectPool in a script. Data, like the prefab to be used as w
 ### IPooledObject and OnSpawn()/ OnDespawn():
 
 Since objects pooled with *Pools* technically only get enabled and disabled, behavior that might normally live in a Start() function of a Monobehavior should not be used like that on pooled objects. It would fire right at the start when the objects are first getting instantiated and wouldn't get called again when the objects actually get spawned. For this reason there is an interface called IPooledObject. So if an object should do something right when it is spawned into the scene, there can be a script added to the gameobject that uses this Interface (public class MyScript: Monobehavior, IPooledObject {...). OnSpawn() and OnDespawn() can then be defined on that script. They will automatically be called at the right time when the object spawns or despawns.
+
+### maxSize and OverflowType:
+
+Another big reason to use object pooling is that it easily allows to track how many objects of a given pool are in use and also to limit a pool from spawning more if it has reached it's limit.
+Every pool has a property called OverflowType. This controls what happens when a pool has spawned all of it's objects and is still being called to spawn new ones.
+
+  - OverflowType.Limit: This is the default behavior. Limit just prevents new objects from being spawned from the pool.
+  - OverflowType.ReuseFirst: The oldest object of the pool in the scene gets despawned and used as a new object to be spawned.
+  - OverflowType.AutoResize: Automatically increases the maxSize of the pool and creates a new item to be spawned.
