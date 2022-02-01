@@ -3,6 +3,6 @@
 /// </summary>
 public interface IPooledObject 
 {
-    void Spawn(ObjectPool _objectPool);
-    void Despawn();
+    void OnSpawn();
+    void OnDespawn();
 }

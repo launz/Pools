@@ -742,12 +742,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testObjectPool:
-    poolName: what
+    poolName: testPool
     prefab: {fileID: 6375796428761182677, guid: 6b3169ef9a6fc404d85ae21d329511ac, type: 3}
-    initSize: 10
-    maxSize: 10
-    overflowType: 0
-    currentSize: 0
+    maxSize: 5
+    overflowType: 1
     parentTransform: {fileID: 0}
 --- !u!4 &1359035284
 Transform:
