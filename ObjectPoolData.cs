@@ -12,7 +12,6 @@ public class ObjectPoolData : ScriptableObject
     [Header("REFERENCES")]
     public GameObject prefab;
     [Header("PARAMETERS")]
-    public int initSize;
     public int maxSize;
     public OverflowType overflowType;
 }

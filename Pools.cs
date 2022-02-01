@@ -7,14 +7,14 @@ public class Pools : MonoBehaviour
     {
         // check if pool was already initialized
         if (pool.parentTransform != null) { return; }
+        // setup queue
         pool.queue = new Queue<GameObject>();
-        // setup for pool scene hierarchy
+        // setup pool for scene hierarchy
         GameObject parentTransform = new GameObject();
         parentTransform.name = pool.poolName;
         pool.parentTransform = parentTransform.transform;
-
         // first time instantiating pool items
-        for (int i = 0; i < pool.initSize; i++)
+        for (int i = 0; i < pool.maxSize; i++)
         {
             CreateNewObject(pool);
         }

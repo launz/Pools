@@ -25,7 +25,6 @@ public class ObjectPool
     [Header("REFERENCES")]
     public GameObject prefab;
     [Header("PARAMETERS")]
-    public int initSize;
     public int maxSize;
     public OverflowType overflowType;
     // Runtime Variables
@@ -40,11 +39,10 @@ public class ObjectPool
     /// Basic object pool instance.
     /// </summary>
     public ObjectPool(
-        string _poolName, GameObject _prefab, int _initSize, int _maxSize, OverflowType _overflowType)
+        string _poolName, GameObject _prefab, int _maxSize, OverflowType _overflowType)
     {
         poolName = _poolName;
         prefab = _prefab;
-        initSize = _initSize;
         maxSize = _maxSize;
         overflowType = _overflowType;
     }
@@ -56,7 +54,6 @@ public class ObjectPool
     {
         poolName = _objectPoolData.poolName;
         prefab = _objectPoolData.prefab;
-        initSize = _objectPoolData.initSize;
         maxSize = _objectPoolData.maxSize;
         overflowType = _objectPoolData.overflowType;
     }
