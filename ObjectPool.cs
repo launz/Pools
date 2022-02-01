@@ -32,7 +32,7 @@ public class ObjectPool
     [HideInInspector]
     public int currentSize;
     [HideInInspector]
-    public Queue <GameObject> queue = new Queue<GameObject>();
+    public Queue <GameObject> queue;
     [HideInInspector]
     public Transform parentTransform;
 

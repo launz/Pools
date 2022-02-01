@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Pools : MonoBehaviour
@@ -6,6 +7,7 @@ public class Pools : MonoBehaviour
     {
         // check if pool was already initialized
         if (pool.parentTransform != null) { return; }
+        pool.queue = new Queue<GameObject>();
         // setup for pool scene hierarchy
         GameObject parentTransform = new GameObject();
         parentTransform.name = pool.poolName;
@@ -14,14 +16,15 @@ public class Pools : MonoBehaviour
         // first time instantiating pool items
         for (int i = 0; i < pool.initSize; i++)
         {
-            CreateNewItem(pool);
+            CreateNewObject(pool);
         }
     }
 
-    public static GameObject CreateNewItem(ObjectPool _pool)
+    public static GameObject CreateNewObject(ObjectPool _pool)
     {
         GameObject newObj = Instantiate(_pool.prefab);
         newObj.SetActive(false);
+        Debug.Log(_pool.queue);
         _pool.queue.Enqueue(newObj);
         _pool.currentSize++;
         newObj.transform.parent = _pool.parentTransform;
@@ -57,7 +60,7 @@ public class Pools : MonoBehaviour
                 //}
             }
             // if there are no items left but pool is not yet at max size:
-            newObj = CreateNewItem(_pool);
+            newObj = CreateNewObject(_pool);
         }
         // take item from queue
         newObj = _pool.queue.Dequeue();
