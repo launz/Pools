@@ -29,8 +29,6 @@ public class ObjectPool
     public OverflowType overflowType;
     // Runtime Variables
     [HideInInspector]
-    public int currentSize;
-    [HideInInspector]
     public Queue <GameObject> queue;
     [HideInInspector]
     public Transform parentTransform;
