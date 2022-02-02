@@ -26,4 +26,6 @@ The OverflowTypes are more like a fale-safe. If a pool consistantly reaches it's
   - OverflowType.Limit: This is the default behavior. Limit just prevents new objects from being spawned from the pool.
   - OverflowType.ReuseFirst: The oldest object of the pool in the scene gets despawned and used as a new object to be spawned.
   - OverflowType.AutoResize: Automatically increases the maxSize of the pool and creates a new item to be spawned. (When used excessively it kind of defeats the purpose of a pool because items are pretty much just normally instantiated.)
- 
+  - 
+ ![pools](https://user-images.githubusercontent.com/23469925/152223391-508dddfa-4f4d-441d-b996-a4fddf893bc2.gif)
+
