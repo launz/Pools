@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Data that can be used to create pools with predefined parameters.
 /// </summary>
-[CreateAssetMenu(fileName = "ObjectPool", menuName = "OUT/ObjectPool", order = 0)]
+[CreateAssetMenu(fileName = "ObjectPool", menuName = "OUT/Pools/ObjectPoolData", order = 0)]
 public class ObjectPoolData : ScriptableObject
 {
     public string poolName;
