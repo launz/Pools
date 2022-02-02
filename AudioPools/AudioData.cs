@@ -9,7 +9,8 @@ using UnityEngine.Audio;
 
 
 [CreateAssetMenu(fileName = "AudioData", menuName = "OUT/Pools/AudioData", order = 1)]
-public class AudioData : ScriptableObject {
+public class AudioData : ScriptableObject
+{
     public AudioClip[] audioClips;
     public float volume = 1f;
     public bool isRandomVolume = false;
