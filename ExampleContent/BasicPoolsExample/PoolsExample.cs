@@ -11,8 +11,9 @@ public class PoolsExample : MonoBehaviour
         Pools.InitPool(testObjectPool);
     }
 
-    public void SpawnItem()
+    public void SpawnObject()
     {
-        Pools.Spawn(testObjectPool, transform.position + Random.insideUnitSphere * 4f, Random.rotation);
+        GameObject newObject = Pools.Spawn(testObjectPool, transform.position + Random.insideUnitSphere * 4f, Random.rotation);
+        newObject.GetComponent<SpawnEffect>().StartEffect();
     }
 }

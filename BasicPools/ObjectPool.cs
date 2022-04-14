@@ -29,8 +29,10 @@ public class ObjectPool
     public OverflowType overflowType;
     // Runtime Variables
     [HideInInspector]
+    // queue of objects that have not been spawned yet
     public Queue <GameObject> inactiveQueue;
     [HideInInspector]
+    // queue of objects that have been spawned
     public Queue<GameObject> activeQueue;
     [HideInInspector]
     public Transform parentTransform;
@@ -38,8 +40,7 @@ public class ObjectPool
     /// <summary>
     /// Basic object pool instance.
     /// </summary>
-    public ObjectPool(
-        string _poolName, GameObject _prefab, int _maxSize, OverflowType _overflowType)
+    public ObjectPool(string _poolName, GameObject _prefab, int _maxSize, OverflowType _overflowType)
     {
         poolName = _poolName;
         prefab = _prefab;

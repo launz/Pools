@@ -5,20 +5,22 @@ using UnityEngine;
 /// <summary>
 /// component to put on audiosource prefab that should be pooled
 /// </summary>
-public class AudioPlayer : MonoBehaviour, IPooledObject
+public class AudioPlayer : MonoBehaviour
 {
-    [Header("REFERENCES")]
-    //[SerializeField] ObjectPooler objectPooler;
+    [HideInInspector]
+    public ObjectPool audioPool;
     AudioSource audioSource;
     // float timePlayed = 0f;
     float clipLength = 0f;
-    public ObjectPool objectPool;
     Coroutine playingCoroutine;
-    private void Awake() {
+    private void Awake() 
+    {
         audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;
     }
-    public void Init(AudioData _audioData) {
+
+    public void Init(AudioData _audioData) 
+    {
         audioSource.clip = _audioData.GetAudioClip();
         clipLength = audioSource.clip.length; 
         audioSource.outputAudioMixerGroup = _audioData.audioMixerGroup;
@@ -35,13 +37,11 @@ public class AudioPlayer : MonoBehaviour, IPooledObject
             audioSource.pitch = Random.Range(_audioData.pitchRange.x, _audioData.pitchRange.y);
         }
     }
-    public void OnSpawn() {
-        //objectPool = _objectPool;
-        Play();
-    }
 
-    public void Play() {
-        if (playingCoroutine!=null) {
+    public void Play() 
+    {
+        if (playingCoroutine!=null) 
+        {
             StopCoroutine(playingCoroutine);
             playingCoroutine=null;
         }
@@ -49,26 +49,18 @@ public class AudioPlayer : MonoBehaviour, IPooledObject
         audioSource.Play();
     }
 
-    IEnumerator PlayCR() {
+    IEnumerator PlayCR() 
+    {
         yield return new WaitForSeconds(clipLength + 0.2f);
-        OnDespawn();
+        EndPlayback();
     }
-    public void OnDespawn() {
-        if (playingCoroutine!=null) {
+    public void EndPlayback() 
+    {
+        if (playingCoroutine!=null) 
+        {
             StopCoroutine(playingCoroutine);
             playingCoroutine=null;
         }
-        //objectPooler.Despawn(objectPool, gameObject);
-    }
-    public void SetParent(Transform _transform) {
-        transform.parent = _transform;
-    }
-
-    public void SetPosition(Vector3 _pos) {
-        transform.position = _pos;
-    }
-
-    public void SetLocalPosition(Vector3 _pos) {
-        transform.localPosition = _pos;
+        AudioPools.Despawn(audioPool, gameObject);
     }
 }

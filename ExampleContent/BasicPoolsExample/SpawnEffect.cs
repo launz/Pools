@@ -2,20 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnEffect : MonoBehaviour, IPooledObject
+public class SpawnEffect : MonoBehaviour
 {
     [SerializeField] AnimationCurve animCurve;
 
-    public void OnSpawn()
+    public void StartEffect()
     {
         Debug.Log("object spawned");
 
         StartCoroutine(SpawnAnimCR());
-    }
-
-    public void OnDespawn()
-    {
-        Debug.Log("object despawned");
     }
 
     private IEnumerator SpawnAnimCR()

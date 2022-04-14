@@ -24,5 +24,4 @@ public class AudioData : ScriptableObject
         return audioClips [Random.Range (0, audioClips.Length)];
     }
 
-
 }

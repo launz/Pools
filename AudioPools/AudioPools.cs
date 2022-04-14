@@ -1,13 +1,15 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class Pools : MonoBehaviour
+public class AudioPools : MonoBehaviour
 {
     /// <summary>
-    /// Initialize pool, has to be called on pool before using it.
+    /// Initialize audiopool, has to be called before using it
     /// </summary>
     /// <param name="_pool"></param>
-    public static void InitPool(ObjectPool _pool)
+    public static void InitAudioPool(ObjectPool _pool) 
     {
         // check if pool was already initialized
         if (_pool.parentTransform != null) { return; }
@@ -37,19 +39,20 @@ public class Pools : MonoBehaviour
         Debug.Log(_pool.inactiveQueue);
         _pool.inactiveQueue.Enqueue(newObj);
         newObj.transform.parent = _pool.parentTransform;
+        newObj.GetComponent<AudioPlayer>().audioPool = _pool;
         return newObj;
     }
 
     /// <summary>
-    /// Spawn new object from pool into scene.
+    /// Play pooled sound. (Also returns gameobject in case it should be parented to something)
     /// </summary>
     /// <param name="_pool"></param>
+    /// <param name="_audioData"></param>
     /// <param name="_position"></param>
-    /// <param name="_rotation"></param>
     /// <returns></returns>
-    public static GameObject Spawn(ObjectPool _pool, Vector3 _position, Quaternion _rotation)
+    public static GameObject PlaySound(ObjectPool _pool, AudioData _audioData, Vector3 _position) 
     {
-        GameObject newObj;
+         GameObject newObj;
         // check if there are no items left in pool
         if (_pool.inactiveQueue.Count < 1)
         {
@@ -78,14 +81,20 @@ public class Pools : MonoBehaviour
         newObj = _pool.inactiveQueue.Dequeue();
         // activate item and set right
         newObj.SetActive(true);
-        newObj.transform.SetPositionAndRotation(_position, _rotation);
+        newObj.transform.SetPositionAndRotation(_position, Quaternion.identity);
         // add object to active queue to track for order of active objects
         _pool.activeQueue.Enqueue(newObj);
+
+        AudioPlayer audioPlayer = newObj.GetComponent<AudioPlayer>();
+
+        audioPlayer.Init(_audioData);
+        audioPlayer.Play();
+
         return newObj;
     }
 
     /// <summary>
-    /// Despawn object from scene into pool.
+    /// Despawn object from scene.
     /// </summary>
     /// <param name="_pool"></param>
     /// <param name="_gameObject"></param>
@@ -100,7 +109,8 @@ public class Pools : MonoBehaviour
     /// Destroys all objects in object pool and the parent transform
     /// </summary>
     /// <param name="_pool"></param>
-    public static void DestroyPool(ObjectPool _pool) {
+    public static void DestroyPool(ObjectPool _pool) 
+    {
         foreach (GameObject go in _pool.activeQueue)
         {
             Despawn(_pool, go);
